@@ -1,11 +1,15 @@
 {
-  "name": "infusionsoft-cold-emails",
-  "version": "1.0.0",
-  "description": "send emails without the unsubscribe link",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+  "name"    : "infusionsoft-cold-emails",
+  "version" : "0.1.0",
+  "main"    : "main.js",
+  "author": "me",
+  "window": {
+  "toolbar": true,
+  "width": 800,
+  "height": 500
+   },
+  "license": "ISC",
+  "dependencies": {
+  "pretty-bytes": "^1.0.2"
+  }
 }

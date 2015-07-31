@@ -1,32 +1,57 @@
+
 <!DOCTYPE html>
 <html>
   <head>
+    <title>LinkedIn Proscpecting Tool</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position:  top: 300; width:50%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 30%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
     <!-- script src="./jquery.min.js"></script -->
     <script type="text/javascript">window.$ = window.jQuery = require('./jquery.min.js');</script>
 
     <meta charset="utf-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Hello World!</title>
     <link rel="stylesheet" href="./jquery.flipster.min.css">
   	<link rel="stylesheet" href="./styles.css">
-
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using io.js <script>document.write(process.version)</script>
-    and Electron <script>document.write(process.versions['electron'])</script>.
+    <h1>Emails without the Unsubscribe Link </h1>
 
-    <div class="flipster">
+     <div>
+
+     </div>
+    <p><a href="https://signin.infusionsoft.com" target="_blank">Infusionsoft AppiD and API needed</a></p>
+    <button id="myBtn">Get Contacts with ColdEmail tag</button>
+    <form action="">
+     <input id="l" autocomplete="off" value="af259" />
+     <input id="api" autocomplete="off" value="fc70c6dc6a20a2b0c2a86aceexxxxxxxxxx"    />
+     <input id="m" autocomplete="off" placeholder="JavaScript (enter search term or skills)" />
+
+      <!-- button id="liGo">Send</button -->
+    </form>
+
+     <div class="flipster">
   		<ul>
   		</ul>
   	</div>
 
   	<p class="stats"></p>
+    <div class="demo">
+      <ul>Results Go Here
+      </ul>
+    </div>
 
-
-  	<script src="./jquery.flipster.min.js"></script>
+  	<!-- script src="./jquery.flipster.min.js"></script -->
     <script src="./script.js"></script>
 
 </body>
+
+
 </html>

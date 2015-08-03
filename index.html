@@ -1,98 +1,163 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Infusionsoft Emails without Unsubscribe</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position:  top: 300; width:50%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 30%; height: 30px; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
 
-      .myButton {
-	-moz-box-shadow: 0px 0px 0px 2px #9fb4f2;
-	-webkit-box-shadow: 0px 0px 0px 2px #9fb4f2;
-	box-shadow: 0px 0px 0px 2px #9fb4f2;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7892c2), color-stop(1, #476e9e));
-	background:-moz-linear-gradient(top, #7892c2 5%, #476e9e 100%);
-	background:-webkit-linear-gradient(top, #7892c2 5%, #476e9e 100%);
-	background:-o-linear-gradient(top, #7892c2 5%, #476e9e 100%);
-	background:-ms-linear-gradient(top, #7892c2 5%, #476e9e 100%);
-	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7892c2', endColorstr='#476e9e',GradientType=0);
-	background-color:#7892c2;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
-	border:1px solid #4e6096;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:19px;
-	padding:12px 12px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
-}
-.myButton:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #476e9e), color-stop(1, #7892c2));
-	background:-moz-linear-gradient(top, #476e9e 5%, #7892c2 100%);
-	background:-webkit-linear-gradient(top, #476e9e 5%, #7892c2 100%);
-	background:-o-linear-gradient(top, #476e9e 5%, #7892c2 100%);
-	background:-ms-linear-gradient(top, #476e9e 5%, #7892c2 100%);
-	background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#476e9e', endColorstr='#7892c2',GradientType=0);
-	background-color:#476e9e;
-}
-.myButton:active {
-	position:relative;
-	top:1px;
-}
+<head>
+  <title>Infusionsoft Emails without Unsubscribe</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font: 24px Helvetica, Arial;
+    }
 
-    </style>
-    <!-- script src="./jquery.min.js"></script -->
-    <script type="text/javascript">window.$ = window.jQuery = require('./jquery.min.js');</script>
+    form {
+      background: #000;
+      padding: 3px;
+      position: top: 400;
+      width: 50%;
+    }
 
-    <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./jquery.flipster.min.css">
-  	<link rel="stylesheet" href="./styles.css">
-  </head>
-  <body>
-    <h1>Emails without Unsubscribe Link</h1>
+    form input {
+      border: 0;
+      padding: 10px;
+      width: 90%;
+      margin-right: .5%;
+    }
 
-     <div>
+    form button {
+      width: 30%;
+      height: 30px;
+      background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+    }
 
-     </div>
-    <p><a href="https://signin.infusionsoft.com" target="_blank">Infusionsoft AppiD, API and Tag name</a></p>
-    <button class="myButton" id="myBtn">Get Contacts with Tag</button>
+    select {
+      font-size: 32px;
+    }
 
-    <form action="">
-     <input id="l" autocomplete="off" value="af259" />
-     <input id="api" autocomplete="off" value="fc70c6dc6a20a2b0c2a86acee2b46e6e"    />
-     <input id="m" autocomplete="off" value="N"  />
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
 
-      <!-- button id="liGo">Send</button -->
-    </form>
+    #messages li {
+      padding: 5px 10px;
+    }
 
-     <div class="flipster">
-  		<ul>
-  		</ul>
-  	</div>
+    #messages li:nth-child(odd) {
+      background: #eee;
+    }
 
-  	<p class="stats"></p>
+    .myButton {
+      -moz-box-shadow: 0px 0px 0px 2px #9fb4f2;
+      -webkit-box-shadow: 0px 0px 0px 2px #9fb4f2;
+      box-shadow: 0px 0px 0px 2px #9fb4f2;
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7892c2), color-stop(1, #476e9e));
+      background: -moz-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+      background: -webkit-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+      background: -o-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+      background: -ms-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+      background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+      filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#7892c2', endColorstr='#476e9e', GradientType=0);
+      background-color: #7892c2;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      border: 1px solid #4e6096;
+      display: inline-block;
+      cursor: pointer;
+      color: #ffffff;
+      font-family: Arial;
+      font-size: 19px;
+      padding: 12px 12px;
+      text-decoration: none;
+      text-shadow: 0px 1px 0px #283966;
+    }
+
+    .myButton:hover {
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #476e9e), color-stop(1, #7892c2));
+      background: -moz-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+      background: -webkit-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+      background: -o-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+      background: -ms-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+      background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+      filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#476e9e', endColorstr='#7892c2', GradientType=0);
+      background-color: #476e9e;
+    }
+
+    .myButton:active {
+      position: relative;
+      top: 1px;
+    }
+  </style>
+  <!-- script src="./jquery.min.js"></script -->
+  <script type="text/javascript">
+    window.$ = window.jQuery = require('./jquery.min.js');
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./jquery.flipster.min.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <h1>Emails without Unsubscribe Link</h1>
+  <div>
+
+  </div>
+  <p><a href="https://signin.infusionsoft.com" target="_blank">Step 1 - Connect to Infusionsoft AppiD</a></p>
+  <div>
+
+  </div>
+
+  <div>
+
+  </div>
+  <form action="">
+    <input id="l" autocomplete="off" value="af259" />
+    <input id="api" autocomplete="off" value="" />
+    <input id="m" autocomplete="off" value="" type="hidden" />
+
+    <!-- button id="liGo">Send</button -->
+  </form>
+
+  <button class="myButton" id="myBtn">Connect</button>
+  <div class="templatselector">
+    <p>Step 2 - Select Email Template<a href="https://af259.infusionsoft.com/app/nav/link?navSystem=nav.marketing&navModule=template">Click to view templates</a>
+    </p>
+    <select id='templatesdropdown' name='dropdowntemplates'>
+
+    </select>
+  </div>
+  <div id=tags>
+    <p>Step 3 - Select Tag
+    </p>
+
+    <select id='tagsdropdown' name='dropdowntags'>
+      <!-- <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option> -->
+    </select>
+  </div>
+
+    <div class="tagselector">
+      </p>
+    </div>
     <div class="demo">
-      <ul>Results Go Here
+      <ul id="demoul">
       </ul>
     </div>
 
-  	<!-- script src="./jquery.flipster.min.js"></script -->
-    <script src="./script.js"></script>
+
+
+  <!-- script src="./jquery.flipster.min.js"></script -->
+  <script src="./script.js"></script>
 
 </body>
 

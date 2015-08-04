@@ -103,63 +103,101 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
   <link rel="stylesheet" href="./jquery.flipster.min.css">
   <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
-  <h1>Emails without Unsubscribe Link</h1>
-  <div>
-
+  <div class="chrome-tabs-shell">
+      <div class="chrome-tabs">
+          <!-- <div class="chrome-tab">
+              <div class="chrome-tab-favicon" style="background-image: url('demo/images/google-favicon.png')"></div>
+              <div class="chrome-tab-title">Cold Send</div>
+              <div class="chrome-tab-close"></div>
+              <div class="chrome-tab-curves">
+                  <div class="chrome-tab-curves-left-shadow"></div>
+                  <div class="chrome-tab-curves-left-highlight"></div>
+                  <div class="chrome-tab-curves-left"></div>
+                  <div class="chrome-tab-curves-right-shadow"></div>
+                  <div class="chrome-tab-curves-right-highlight"></div>
+                  <div class="chrome-tab-curves-right"></div>
+              </div>
+          </div> -->
+          <div class="chrome-tab chrome-tab-current">
+              <div class="chrome-tab-favicon" style="background-image: url('./infusionsoft-favicons.png')"></div>
+              <div class="chrome-tab-title">Infusionsoft</div>
+              <div class="chrome-tab-close"></div>
+              <div class="chrome-tab-curves">
+                  <div class="chrome-tab-curves-left-shadow"></div>
+                  <div class="chrome-tab-curves-left-highlight"></div>
+                  <div class="chrome-tab-curves-left"></div>
+                  <div class="chrome-tab-curves-right-shadow"></div>
+                  <div class="chrome-tab-curves-right-highlight"></div>
+                  <div class="chrome-tab-curves-right"></div>
+              </div>
+          </div>
+      </div>
+      <div class="chrome-shell-bottom-bar"></div>
   </div>
-  <p><a href="https://signin.infusionsoft.com" target="_blank">Step 1 - Connect to Infusionsoft AppiD</a></p>
-  <div>
 
+  <br>
+
+  <div>
+    <h1>Emails without Unsubscribe Link</h1>
+  </div>
+  <div>
+    <p><a href="https://signin.infusionsoft.com" target="_blank">Step 1 - Connect to Infusionsoft AppiD</a></p>
   </div>
 
   <div>
-
+    <form action="">
+      <input id="l" autocomplete="off" value="af259" />
+      <input id="api" autocomplete="off" value="ea696d05aca61279c4b42bc809c3d23a" />
+      <input id="m" autocomplete="off" value="" type="hidden" />
+    </form>
   </div>
-  <form action="">
-    <input id="l" autocomplete="off" value="af259" />
-    <input id="api" autocomplete="off" value="" />
-    <input id="m" autocomplete="off" value="" type="hidden" />
-
-    <!-- button id="liGo">Send</button -->
-  </form>
 
   <button class="myButton" id="myBtn">Connect</button>
+
   <div class="templatselector">
     <p>Step 2 - Select Email Template<a href="https://af259.infusionsoft.com/app/nav/link?navSystem=nav.marketing&navModule=template">Click to view templates</a>
     </p>
     <select id='templatesdropdown' name='dropdowntemplates'>
-
     </select>
   </div>
+
   <div id=tags>
     <p>Step 3 - Select Tag
     </p>
-
     <select id='tagsdropdown' name='dropdowntags'>
-      <!-- <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option> -->
     </select>
   </div>
 
-    <div class="tagselector">
-      </p>
-    </div>
-    <div class="demo">
-      <ul id="demoul">
-      </ul>
-    </div>
+  <div class="tagselector">
+    </p>
+  </div>
+
+  <div class="demo">
+    <ul id="demoul">
+    </ul>
+  </div>
+
+  <div class="infsframe">
+    <!-- ul id="infsframe">Hide ME - I will be an iframe of INFS
+    </ul -->
+  <webview id="foo" src="https://signin.infusionsoft.com/login?" style="display:inline-block; width:640px; height:480px"></webview>
+
+  </div>
+
 
 
 
   <!-- script src="./jquery.flipster.min.js"></script -->
   <script src="./script.js"></script>
-
+  <script src="./jquery-ui.min.js"></script>
+  <script src="./chrome-tabs.js"></script>
 </body>
-
 
 </html>

@@ -111,8 +111,8 @@
 
 <body>
   <div class="chrome-tabs-shell">
-      <div class="chrome-tabs">
-          <!-- <div class="chrome-tab">
+    <div class="chrome-tabs">
+      <!-- <div class="chrome-tab">
               <div class="chrome-tab-favicon" style="background-image: url('demo/images/google-favicon.png')"></div>
               <div class="chrome-tab-title">Cold Send</div>
               <div class="chrome-tab-close"></div>
@@ -125,21 +125,21 @@
                   <div class="chrome-tab-curves-right"></div>
               </div>
           </div> -->
-          <div class="chrome-tab chrome-tab-current">
-              <div class="chrome-tab-favicon" style="background-image: url('./infusionsoft-favicons.png')"></div>
-              <div class="chrome-tab-title">Infusionsoft</div>
-              <div class="chrome-tab-close"></div>
-              <div class="chrome-tab-curves">
-                  <div class="chrome-tab-curves-left-shadow"></div>
-                  <div class="chrome-tab-curves-left-highlight"></div>
-                  <div class="chrome-tab-curves-left"></div>
-                  <div class="chrome-tab-curves-right-shadow"></div>
-                  <div class="chrome-tab-curves-right-highlight"></div>
-                  <div class="chrome-tab-curves-right"></div>
-              </div>
-          </div>
+      <div class="chrome-tab chrome-tab-current">
+        <div class="chrome-tab-favicon" style="background-image: url('./infusionsoft-favicons.png')"></div>
+        <div class="chrome-tab-title">Infusionsoft</div>
+        <div class="chrome-tab-close"></div>
+        <div class="chrome-tab-curves">
+          <div class="chrome-tab-curves-left-shadow"></div>
+          <div class="chrome-tab-curves-left-highlight"></div>
+          <div class="chrome-tab-curves-left"></div>
+          <div class="chrome-tab-curves-right-shadow"></div>
+          <div class="chrome-tab-curves-right-highlight"></div>
+          <div class="chrome-tab-curves-right"></div>
+        </div>
       </div>
-      <div class="chrome-shell-bottom-bar"></div>
+    </div>
+    <div class="chrome-shell-bottom-bar"></div>
   </div>
 
   <br>
@@ -183,16 +183,20 @@
     <ul id="demoul">
     </ul>
   </div>
-
+  <button class="myBtnlaunch" id="myBtnlaunch">Connect</button>
+  <div class="countemails">
+    <p class="countemails" id="countemails" style="color: green; font-size: 40px">0
+    </p>
+  </div>
   <div class="infsframe">
     <!-- ul id="infsframe">Hide ME - I will be an iframe of INFS
     </ul -->
-  <webview id="foo" src="https://signin.infusionsoft.com/login?" style="display:inline-block; width:640px; height:480px"></webview>
-
+    <!-- <webview id="foo" src="https://signin.infusionsoft.com/login?" style="display:inline-block; width:640px; height:480px"></webview> -->
+    <form action="">
+      <input id="s" autocomplete="off" value="Subject line" />
+      <input id="b" autocomplete="off" value="Body of message" />
+    </form>
   </div>
-
-
-
 
   <!-- script src="./jquery.flipster.min.js"></script -->
   <script src="./script.js"></script>

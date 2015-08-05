@@ -13,8 +13,9 @@ $(document).ready(function() {
 
 document.getElementById("myBtn").addEventListener("click", displayTags);
 document.getElementById("tagsdropdown").addEventListener("change", displayContacts);
-document.getElementById("templatesdropdown").addEventListener("change", displayTemplates);
-document.getElementById("myBtnlaunch").addEventListener("click", logColdEmails);
+document.getElementById("templatesdropdown").addEventListener("change", displayTemplate);
+document.getElementById("myBtnlaunch").addEventListener("click", displayTemplate);
+
 
 function displayTags() {
   loadtagdropdown();
@@ -32,25 +33,40 @@ function counterZero() {
     return +0
   });
 }
+function sendemail(emailthisperson) {
+  console.log('you are sending meail to' + emailthisperson.target.id);
+//  console.log(emailthisperson.target.id + $("[id=s]").attr('value')+ $("[id=b]").attr('value'));
 
+}
 function logColdEmails(contactidtoemail) {
-  // var checkedValue = $(":checkbox:checked").parent().find("a").attr("name");
-  //  console.log(checkedValue);
+    sendemail(contactidtoemail); //  console.log(contactidtoemail.target.id);
+    counterUp(); //increment emails sent counter for ux
+    //hiding li after checkbox to send email
     $('ul li')
     .filter(function() {
       //  return $(this).find('input:checked').length == 0;
       return $(this).find('input:checkbox:not(:checked)').length == 0;
     })
     .hide()
-    //console.log($(this).find('input:checkbox:not(:checked)').parent().find('a').attr('name'))
-
-    counterUp();
-
   }
 
-  function displayTemplates() {
-    //  loadtemplatedropdown()
-    counterZero();
+  function displayTemplate() {
+    var getthistemplate = $("#templatesdropdown option:selected").attr("value");
+    //console.log(getthistag);
+    var currenttemplate = document.getElementById("viewtemplate"); // Get the <div> element with id="viewtemplate"
+    while (currenttemplate.hasChildNodes()) {
+      currenttemplate.removeChild(currenttemplate.firstChild);
+    };
+    infusionsoft.APIEmailService
+    .getEmailTemplate(getthistemplate)
+    .done(function(result3) {
+
+          //  console.log(result3.htmlBody);
+            $( ".viewtemplate" ).append( result3.htmlBody );
+        //    $( "#viewtemplate" ).val( result3.htmlBody );
+        $( ".viewtemplate" ).find('tr').last().remove();
+        });
+
   }
 
   function displayContacts() {
@@ -112,6 +128,7 @@ function logColdEmails(contactidtoemail) {
           }
         });
       });
+
   }
 
   function getInfsContacts() {
@@ -148,24 +165,21 @@ function logColdEmails(contactidtoemail) {
             .done(function(result2) {
               var calls = [];
               for (var j = 0; j < result2.length; ++j) {
-                var li = $('<li><a target="_blank"></a><input type="checkbox" id="sendnow" name="sendnow" class="sendnow" value="yes"> Check to send email<br></li>');
+                var li = $('<li><a target="_blank"></a><input type="checkbox" id="' + result2[j].Email + '" name="sendnow" class="sendnow" value="yes"> Check to send email<br></li>');
                 li.find('a')
                   .attr('name', result2[j].Email)
                   .text(result2[j].FirstName + " " + result2[j].LastName + " " + result2[j].Email + " " + result2[j].Id + " ");
                 li.appendTo(ul);
-                calls[j] = function() {
-                  console.log('Sent for you');
-                  logColdEmails(result2[j].Id);
-                  //  cleanupLi();
-                };
+                // calls[j] = function() {
+                //   console.log('Sent for you');
+                //   logColdEmails(result2[j].Id);
+                //   //  cleanupLi();
+                // };
                 console.log('before event handler');
-                li[j].addEventListener('click', logColdEmails);
-
-                //      li[j].checkbox.addEventListener('click', logColdEmails);
-
-
+                $(li[j]).bind('click', function( event ){
+                            logColdEmails(event);
+                          });
               }
-
             });
         };
       });

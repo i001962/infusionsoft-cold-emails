@@ -7,6 +7,7 @@ var api = require('infusionsoft-api');
 var infusionsoft = new api.DataContext($('#l').val(), $('#api').val());
 var mergefieldmu = [];
 var mergefieldINFSList = [];
+var currentsubjectline = "";
 //mergefiledtech, mergeObject, mergeField, mergeregex
 var mergefieldvalue = [
   [01, 02, 03, 04],
@@ -15,6 +16,7 @@ var mergefieldvalue = [
 var sendingfrom = "i001962@gmail.com"; // hack until config settings page
 var modesetto = "infusionsoft"; // hack until config settings page
 var currenttemplate = "";
+var currentsubjectline = "";
 var GoogleSpreadsheet = require("google-spreadsheet");
 // spreadsheet key is the long id in the sheets URL
 var my_sheet = new GoogleSpreadsheet($('#gdoc')[0].value);
@@ -33,15 +35,15 @@ function replaceMergefields(contactsfieldstomerge) {
   for (var k = 0; k < contactsfieldstomerge.length; ++k) {
     if (contactsfieldstomerge[k][3] && contactsfieldstomerge[k][4]) {
       var re = new RegExp(contactsfieldstomerge[k][3]);
-      console.log(re);
+    //  console.log(re);
 
       //console.log(mergefieldmu);
 
-        console.log('made it ' + contactsfieldstomerge[k][4])
+      //  console.log('made it ' + contactsfieldstomerge[k][4])
         var propertyName = contactsfieldstomerge[k][4];
         //do something
         str = str.replace(re, propertyName);
-      
+
     };
 
   };
@@ -53,15 +55,16 @@ function replaceMergefields(contactsfieldstomerge) {
   // the object emailthisperson which contains the values in the same array order as
   // must align array positions as emailthisperson will only have Contact fields not ~Link or ~User_
   //console.log(str);
-  console.log(str);
+  //console.log(str);
   currenttemplate = str;
 }
 
 function loadInfsContact(theid) {
   var findthese = [];
   var countfields = 0;
+  console.log('Looking for values of these merge fields:');
   for (var k = 0; k < mergefieldvalue.length; ++k) {
-    console.log(mergefieldvalue[k][1]);
+    console.log(mergefieldvalue[k][0]);
     //Build Array of specific customer fields for INFS to return for a given contact
     if (mergefieldvalue[k][1] == 'Contact') {
       findthese[countfields] = mergefieldvalue[k][2];
@@ -71,7 +74,7 @@ function loadInfsContact(theid) {
   var findthesefields = Object.keys(findthese).map(function(key) {
     return findthese[key]
   });
-  console.log(theid);
+  console.log('Loading Contact Id: ' + theid);
   console.log(findthesefields);
   infusionsoft.ContactService
     .load(theid, findthesefields)
@@ -112,11 +115,11 @@ function getGDocContacts() {
 }
 
 function removecontactlist() {
-  console.log('clearing email to do list');
+//  console.log('clearing email to do list');
   var currentcontacts = document.getElementById("demoul"); // Get the <div> element with id="viewtemplate"
   while (currentcontacts.hasChildNodes()) {
     currentcontacts.removeChild(currentcontacts.firstChild);
-    console.log('removing child');
+//    console.log('removing child');
 
   };
 }
@@ -209,6 +212,7 @@ function cleartemplate() {
 
 function findmergefields() {
   var str = currenttemplate;
+  var strsubjectline = currentsubjectline;
   mergefieldmu = str.match(/~(.*)~/g);
   mergefieldvalue = mergefieldmu;
 
@@ -244,12 +248,14 @@ function displayTemplate() {
   infusionsoft.APIEmailService
     .getEmailTemplate(getthistemplate)
     .done(function(result3) {
-      //    console.log(result3);
+          console.log(result3);
+      $(".viewtemplate").append(result3.subject);
       $(".viewtemplate").append(result3.htmlBody);
       //    $( ".viewtemplate" ).append( result3.htmlBody );
       // strip can spam from display area as well as in global variable
       $(".viewtemplate").find('tr').last().remove();
       currenttemplate = $(".viewtemplate").html();
+      currentsubjectline = result3.subject;
       findmergefields();
 
     });
@@ -384,7 +390,7 @@ function showProps(obj, objName) {
   for (var i in obj) {
     if (obj.hasOwnProperty(i)) {
       //result += obj[i];
-      console.log(i);
+//       console.log(i);
       result += i + ',';
     }
   }

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Infusionsoft Emails without Unsubscribe</title>
+  <title>ArrowHorn Email Merge</title>
   <style>
     * {
       margin: 0;
@@ -98,7 +98,7 @@
   </style>
   <!-- script src="./jquery.min.js"></script -->
   <script type="text/javascript">
-     window.$ = window.jQuery = require('./jquery.min.js');
+    window.$ = window.jQuery = require('./jquery.min.js');
     $(function() {
       $("#accordion").accordion({
         heightStyle: "content"
@@ -110,13 +110,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="stylesheet" href="./jquery-ui.css">
-  <link rel="stylesheet"href="./jquery.dataTables.min.css">
+  <link rel="stylesheet" href="./jquery.dataTables.min.css">
 
   <link rel="stylesheet" href="./jquery.flipster.min.css">
   <link rel="stylesheet" href="./styles.css">
-
+  <link rel="stylesheet" type="text/css" href="./DataTables/datatables.css" />
   <script src="./tinymce.min.js"></script>
-    <!-- script src="./jquery.min.js"></script -->
+  <!-- script src="./jquery.min.js"></script -->
 
 </head>
 
@@ -155,115 +155,127 @@
 
   <br>
   <div>
-    <h1>Emails without Unsubscribe Link</h1>
-    <H4>Advanced Settings<input type="checkbox" id="debugmode" name="debugmode" class="debugmode"></H4>
+    <h1>ArrowHorn Email Merge</h1>
+    <H4>Advanced Settings
+      <input type="checkbox" id="debugmode" name="debugmode" class="debugmode">
+    </H4>
   </div>
   <div id="accordion">
     <h3>Step 1 - Set SendFrom eMail Address</h3>
-    <div class="emailselector" >
+    <div class="emailselector">
       <div>
         <select id='emaildropdown' name='dropdownemail'>
           <option value="i001962@gmail.com">i001962@gmail.com</option>
           <option value="kevin@hazelanalytics.com">kevin@hazelanalytics.com</option>
           <option value="kmcdonald@knowingtechnologies.com">kmcdonald@knowingtechnologies.com</option>
         </select>
+        <p><input type="checkbox" id="sendbcc" name="sendbcc"> Yes, add this email address as a bcc.</p>
+
+        <p><a href="http://test.com" target="_blank">Register to add a Send From email address</a></p>
+
 
 
         <div id='emailmodes'>
           <div id='sendgridconfig'>
             <p>Configure SMPT Settings</p>
             <form action="">
-               <label for="host" style="color: white">Host</label><input id="host" autocomplete="off" value="smtp.sendgrid.net" />
-               <label for="user" style="color: white">User</label><input id="user" autocomplete="off" value="i001962" />
-               <label for="pass" style="color: white">Password</label><input id="pass" autocomplete="off" value="HAeGzEGtdvh34r" />
-               <label for="ssl" style="color: white">SSL</label><input id="ssl" autocomplete="off" placeholder="true" value="" />
-               <label for="tls" style="color: white">TLS</label><input id="tls" autocomplete="off" placeholder  ="SSLv3" />
-              <label for="port" style="color: white">Port</label><input id="port" autocomplete="off" placeholder="465" value="" />
+              <label for="host" style="color: white">Host</label>
+              <input id="host" autocomplete="off" value="smtp.sendgrid.net" />
+              <label for="user" style="color: white">User</label>
+              <input id="user" autocomplete="off" value="i001962" />
+              <label for="pass" style="color: white">Password</label>
+              <input id="pass" autocomplete="off" value="HAeGzEGtdvh34r" />
+              <label for="ssl" style="color: white">SSL</label>
+              <input id="ssl" autocomplete="off" placeholder="true" value="" />
+              <label for="tls" style="color: white">TLS</label>
+              <input id="tls" autocomplete="off" placeholder="SSLv3" />
+              <label for="port" style="color: white">Port</label>
+              <input id="port" autocomplete="off" placeholder="465" value="" />
             </form>
             <button class="myButton" id="myBtn1">Confirm</button>
             <p id='errmsgs'></p>
           </div>
         </div>
       </div>
-          </div>
-      <h3>Step 2 - Select Source of Contacts</h3>
-      <div class="modeselector">
+    </div>
+    <h3>Step 2 - Select Source of Contacts</h3>
+    <div class="modeselector">
 
-        <select id='modedropdown' name='modedropdown'>
-          <option value="infusionsoft">Infusionsoft</option>
-          <option value="standalone" disabled="disabled">Google Docs</option>
-          <option value="salesforce" disabled="disabled">Salesforce</option>
+      <select id='modedropdown' name='modedropdown'>
+        <option value="infusionsoft">Infusionsoft</option>
+        <option value="standalone" disabled="disabled">Google Docs</option>
+        <option value="salesforce" disabled="disabled">Salesforce</option>
+      </select>
+    </div>
+    <h3>Step 3 - Source Integration Settings</h3>
+    <div id='modes'>
+      <div id='infsconfig'>
+        <p><a href="https://signin.infusionsoft.com/login?" target="_blank">Enter your Infusionsoft AppID and API Key - Click to find</a></p>
+        <p>* This key is NEVER sent to ArrowHorn.</p>
+        <form action="">
+          <input id="l" autocomplete="off" value="af259" />
+          <input id="api" autocomplete="off" value="ea696d05aca61279c4b42bc809c3d23a" />
+        </form>
+        <button class="myButton" id="myBtn">Connect</button>
+        <p id='errmsgs'></p>
+      </div>
+
+      <div id='sfdcconfig' style="display: none;">
+        <p><a href="https://salesforce.com" target="_blank">Step 1.a - Connect to SalesForce.com</a></p>
+        <form action="">
+          <input id="sfdcid" autocomplete="off" value="API Key" />
+          <input id="sfdcapi" autocomplete="off" value="your api stuff" />
+        </form>
+      </div>
+
+      <div id='standaloneconfig' style="display: none;">
+        <p>Compose email manualy</a>
+        </p>
+        <form action="">
+          <input id="gdoc" autocomplete="off" value="1qeHGxkkU3pGA-Lk6p017oc0KcsvkgBh8ucd2DgcZhJo" />
+          <input id="s" autocomplete="off" value="Subject line" />
+          <input id="b" autocomplete="off" value="body text" />
+        </form>
+        <button class="myBtnlaunch" id="myBtnlaunch">Load emails addresses to send to</button>
+      </div>
+    </div>
+
+
+    <h3>Step 4 - Craft Cold eMail</h3>
+    <div class="tagselector">
+      <div class="templatselector">
+        <p>Select Email Template</p>
+        <select id='templatesdropdown' name='dropdowntemplates'>
         </select>
       </div>
-      <h3>Step 3 - Source Integration Settings</h3>
-      <div id='modes'>
-        <div id='infsconfig'>
-          <p><a href="#" target="_blank">Infusionsoft AppID and API Key</a></p>
-          <form action="">
-            <input id="l" autocomplete="off" value="af259" />
-            <input id="api" autocomplete="off" value="ea696d05aca61279c4b42bc809c3d23a" />
-          </form>
-          <button class="myButton" id="myBtn">Connect</button>
-          <p id='errmsgs'></p>
-        </div>
+    </div>
+    <h3>Step 5 - Preview and Edit Email</h3>
+    <div class="viewtemplate" id="viewtemplate"> </div>
 
-        <div id='sfdcconfig' style="display: none;">
-          <p><a href="https://salesforce.com" target="_blank">Step 1.a - Connect to SalesForce.com</a></p>
-          <form action="">
-            <input id="sfdcid" autocomplete="off" value="API Key" />
-            <input id="sfdcapi" autocomplete="off" value="your api stuff" />
-          </form>
-        </div>
+    <h3>Step 6 - Filter Contacts</h3>
+    <div id=tags>
+      <select id='tagsdropdown' name='dropdowntags'>
+      </select>
+    </div>
 
-        <div id='standaloneconfig' style="display: none;">
-          <p>Compose email manualy</a>
-          </p>
-          <form action="">
-            <input id="gdoc" autocomplete="off" value="1qeHGxkkU3pGA-Lk6p017oc0KcsvkgBh8ucd2DgcZhJo" />
-            <input id="s" autocomplete="off" value="Subject line" />
-            <input id="b" autocomplete="off" value="body text" />
-          </form>
-          <button class="myBtnlaunch" id="myBtnlaunch">Load emails addresses to send to</button>
-        </div>
-      </div>
-
-
-      <h3>Step 4 - Craft Cold eMail</h3>
-      <div class="tagselector">
-        <div class="templatselector">
-          <p>Select Email Template<a href="https://af259.infusionsoft.com/app/nav/link?navSystem=nav.marketing&navModule=template">Click to view templates</a>
-          </p>
-          <select id='templatesdropdown' name='dropdowntemplates'>
-          </select>
-        </div>
-      </div>
-      <h3>Step 5 - Preview Email</h3>
-      <div class="viewtemplate" id="viewtemplate"> </div>
-
-      <h3>Step 6 - Filter Contacts</h3>
-      <div id=tags>
-        <select id='tagsdropdown' name='dropdowntags'>
-        </select>
-      </div>
-
-      <!-- <h3>Step 7 - Confirm Data Merge and Send Emails</h3>
+    <!-- <h3>Step 7 - Confirm Data Merge and Send Emails</h3>
       <div class="demo">
         <ul id="demoul" style="list-style: none outside none;"  >
         </ul>
       </div> -->
-      <h3>Step 7 - Review, Edit &amp; Send</h3>
-      <div class="countemails">
-        <p class="countemails" id="countemails" style="color: green; font-size: 22px">0
-        </p>
-        <button class="myButton" id="contacttablebutton">Send eMail</button>
-        <table id="contacttable" class="display" cellspacing="0" width="100%">
-    </table>
-      </div>
-
-
-
-      <!-- script src="./jquery.flipster.min.js"></script -->
+    <h3>Step 7 - Review links, Edit merge data then Send</h3>
+    <div class="countemails">
+      <!-- <p class="countemails" id="countemails" style="color: green; font-size: 22px">0
+        </p> -->
+      <button class="myButton" id="contacttablebutton">Send eMail</button>
+      <table id="contacttable" class="display" cellspacing="0" width="100%">
+      </table>
     </div>
+
+
+
+    <!-- script src="./jquery.flipster.min.js"></script -->
+  </div>
 
 </body>
 
@@ -278,6 +290,7 @@
 <script src="./jquery.dataTables.editable.js"></script>
 <script src="./jquery.validate.js"></script>
 <script src="./dataTables.select.min.js"></script>
+<script type="text/javascript" src="./DataTables/datatables.js"></script>
 <!-- link rel="stylesheet"src="./query.dataTables.min.css" -->
 
 

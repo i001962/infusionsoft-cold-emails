@@ -15,6 +15,7 @@ var ssl = $('#ssl').val();
 var tls = $('#tls').val();
 var port = $('#port').val();
 var debugmodeon = false;
+var usebccflag = false;
 var today = "";
 var dayofweektext = "";
 var DayOfMonthtext = "";
@@ -44,19 +45,26 @@ var countertemp = 0;
 
 $(document).ready(function() {
   console.log("ready!");
+
   $("#emailmodes").hide();
   $('#contacttable').dataTable({
     bSort: false,
+    processing: true, //??
+    //  serverSide: true,
+    bDeferRender: true,
+    autoFill: true,
     aoColumns: [{
       sWidth: "45%"
     }, {
       sWidth: "45%"
     }, {
       sWidth: "10%",
+      bEnable: false,
+      aTargets: [-1, -2, -3],
       bSearchable: false,
       bSortable: false
     }],
-    "scrollY": "200px",
+    "scrollY": "100",
     "scrollCollapse": true,
     "info": true,
     "paging": true
@@ -90,7 +98,14 @@ $(document).ready(function() {
     };
     table.rows('.selected').remove().draw(false);
   });
-
+  //Make sure viewtemplate editiable by enduser is updated before email is sent
+  currenttemplate = $('.viewtemplate').html();
+  $('.viewtemplate').blur(function() {
+    if (currenttemplate != $(this).html()) {
+      //  alert('Handler for .change() called.');
+      currenttemplate = $(this).html();
+    }
+  });
 });
 
 function mergeprep(sendingToArray) {
@@ -98,7 +113,7 @@ function mergeprep(sendingToArray) {
     for (var kmm = 0; kmm < sendingToArray[km].length; ++kmm) {
       mergefieldvalue[kmm].push(sendingToArray[km][kmm]);
     }
-    console.log(mergefieldvalue);
+//    console.log(mergefieldvalue);
     //    console.log(currentsubjectline);
     //  var newsubjectline = replaceMergefields(1, mergefieldvalue, currentsubjectline);
     var newbodytext = replaceMergefields(2, mergefieldvalue, currenttemplate);
@@ -188,15 +203,15 @@ function debugnow() {
 
 function replaceMergefields(typeoftext, contactsfieldstomergelocal, texttoregex) {
   //  console.log(typeoftext);
-  console.log(contactsfieldstomergelocal);
+//  console.log(contactsfieldstomergelocal);
   //    console.log(texttoregex);
   if (typeoftext === 1) { //subject line to be replaced and returned
-    console.log('You are in subjectline regex replace');
+//    console.log('You are in subjectline regex replace');
     var localnewsubjectline = findwithregex(texttoregex);
-    console.log(localnewsubjectline);
+//    console.log(localnewsubjectline);
     return localnewsubjectline;
   } else { // bodytext of the email to be replaced and returned
-    console.log('You are in bodytext regex replace');
+//    console.log('You are in bodytext regex replace');
     var localnewbodytext = findwithregex(texttoregex);
     //  console.log(localnewbodytext);
     return localnewbodytext;
@@ -213,7 +228,7 @@ function replaceMergefields(typeoftext, contactsfieldstomergelocal, texttoregex)
         if (typeoftext === 2) {
           var propertyName = contactsfieldstomergelocal[k][contactsfieldstomergelocal[k].length - 1];
         } else {
-          console.lgo('you are here and should not be');
+          console.log('you are here and should not be - contact developer');
           var propertyName = contactsfieldstomergelocal[k][4];
         }
         //  var propertyName = contactsfieldstomergelocal[k][4];
@@ -246,7 +261,7 @@ function loadInfsContact(theid) {
   infusionsoft.ContactService
     .load(theid, findthesefields)
     .done(function(result5) {
-      console.log(result5);
+    //  console.log(result5);
       contactselectfields = result5;
       // add these results to the mergefieldvalue array of arrays - unbalanced
       for (var i = 0; i < mergefieldvalue.length; ++i) {
@@ -374,7 +389,7 @@ function loaddropdowns() {
   infusionsoft = new api.DataContext($('#l').val(), $('#api').val());
   //  loginUser(); // validate API credentials // not used this rev. will move to oAuth
   loadtemplatedropdown()
-  loadtagdropdown();
+  loadtagdropdown2();
   //  loadmergefieldcontext(); //get 'contact' (only) mergefiled names from infs
   $('#ui-accordion-accordion-header-2').html(function(i, val) {
     return 'Step 3 - Source Integration Settings - DONE'
@@ -394,13 +409,17 @@ function counterZero() {
 }
 
 function sendemail(emailthisperson) {
-
-  console.log('from email account: ' + sendingfrom);
-  console.log('you are sending email to ');
-  console.log(emailthisperson);
+var bccaddress = "";
+  // console.log('from email account: ' + sendingfrom);
+  // console.log('you are sending email to ');
+  // console.log(emailthisperson);
+  // console.log('send a bcc :' + usebccflag)
+  if (usebccflag){
+    bccaddress = sendingfrom
+  };
   //console.log(thenewsubjectline);
   var grabsubjectline = emailthisperson[emailthisperson.length - 1].match(/^(.*?)\</);
-  console.log(grabsubjectline[1]);
+//  console.log(grabsubjectline[1]);
   //  emailthisperson[emailthisperson.length - 1].replace(/^[^<]*</, '');
   //  console.log(emailthisperson[emailthisperson.length - 1]);
   //emailthisperson[emailthisperson.length - 1] = /^[^<]*</.exec(emailthisperson[emailthisperson.length - 1])[1];
@@ -410,7 +429,6 @@ function sendemail(emailthisperson) {
   //  console.log(emailbody);
   //console.log('you are sending meail to' + emailthisperson.target.fromAddress);
   var email = require("./node_modules/emailjs/email");
-  var testing = "<div>food safety scores? <br/><br/>We have 1634 of your brand's locations in our national food safety database. I'd like to hear your feedback on our scoring methodology before we launch this fall. <br/><br/>Are you available on Tuesday afternoon for a call?</div>";
   var server = email.server.connect({
     // NOT Working outlook Config
     //   user: "kmcdonald@@knowingtechnologies.com",
@@ -446,22 +464,17 @@ function sendemail(emailthisperson) {
     tls: {
       ciphers: tls
     } // use for sendgrid & outlook
-
-
   });
-  // console.log(currenttemplate);
   //		send the message and get a callback with an error or details of the message that was sent
   server.send({
     text: 'this is first test',
     from: sendingfrom,
     to: "i001962@gmail.com",
+    bcc: bccaddress,
     //   to:      emailthisperson.target.id,
-
     subject: grabsubjectline[1],
     attachment: [{
-      //  data: $("#mainContent").html(),
       data: emailbody,
-      //  data: testing,
       alternative: true //research sendgrid if necessary
         //  alternative: false //research sendgrid if necessary
     }]
@@ -471,15 +484,13 @@ function sendemail(emailthisperson) {
     });
     console.log(err || message);
   });
-  // console.log($("#mainContent").html()); //see the html that was sent
-
 }
 
 function logColdEmails(contactidtoemail) {
   //  console.log(contactidtoemail.target.id);
   loadInfsContact(contactidtoemail.target.id); // must adjust for table usage instead of Ul/li
 
-  counterUp(); //increment emails sent counter for ux
+  // counterUp(); //increment emails sent counter for ux
   //hiding li after checkbox to send email
   $('ul li')
     .filter(function() {
@@ -494,6 +505,7 @@ function cleartemplate() {
   while (cleartemplate.hasChildNodes()) {
     cleartemplate.removeChild(cleartemplate.firstChild);
   };
+  $(".viewtemplate").attr('contentEditable', 'true');
 }
 
 function emptydatatable() {
@@ -503,6 +515,8 @@ function emptydatatable() {
 }
 
 function inittablerowobject() {
+  //every table cell is set to a value "Unknown" when data is loaded cells with values are overriden.
+  //Enduser is responsible for entering missing values
   rowobj = {};
   for (var j = 0; j < mergefieldvalue.length; ++j) {
     objprop = mergefieldvalue[j][2];
@@ -516,7 +530,7 @@ function findmergefields() {
   var flagemailalreadyincluded = false;
   var my_array = new Array();
   var str = currenttemplate; // + currentsubjectline;
-  console.log('about to regex for mergfields');
+  // console.log('about to regex for mergfields');
   mergefieldmu = str.match(/\~(.*?)\~/g);
 
   mergefieldvalue = mergefieldmu;
@@ -525,7 +539,7 @@ function findmergefields() {
   // if (mergefieldmu[j] == '~Contact.Email~') {
   //   flagemailalreadyincluded = true;
   // }
-  console.log('How many merge fields? ' + mergefieldmu);
+//  console.log('How many merge fields? ' + mergefieldmu);
   if (mergefieldmu == null) {
 
     mergefieldmu = ["~Contact.Email~"];
@@ -535,13 +549,13 @@ function findmergefields() {
   if ($.inArray("~Contact.Email~", mergefieldmu) > -1) {
     flagemailalreadyincluded = true;
   };
-  console.log(mergefieldmu.length);
+//  console.log(mergefieldmu.length);
   for (var j = 0; j < mergefieldmu.length; ++j) {
     // split to find INFS object eg Contact and field names eg email
     var splitmergefields = mergefieldmu[j].match(/[^\~.]+/g);
     //build the regex needed to replace token in template for each mergefieldvalue
     var re = new RegExp(mergefieldmu[j], "g");
-      console.log(re);
+  //  console.log(re);
     mergefieldvalue[j] = [mergefieldmu[j], splitmergefields[0], splitmergefields[1], re];
 
     //KMM insert dup mergefield check and eliminate - must confirm replace into email is ok with that
@@ -562,21 +576,52 @@ function findmergefields() {
       "title": x[2]
     }
   })
-  console.log('about to draw headers');
+  buildtable();
+}
+
+function buildtable() {
+//  console.log('about to draw headers');
   $('#contacttable').DataTable({
     retrieve: true,
     destroy: true,
+    autoFill: true,
     //  columns: colheader.sort()
     columns: colheader
   });
+  //   //kmm
+  //   $.fn.dataTableExt.afnSortData['email'] = function ( oSettings, iColumn )
+  // {
+  // 	var aData = [];
+  // 	$( 'td:eq('+iColumn+') input', oSettings.oApi._fnGetTrNodes(oSettings) ).each( function () {
+  // 		aData.push( this.value );
+  // 	} );
+  // 	return aData;
+  // }
+  //
+  // 	var oTable = $('#contacttable').dataTable( {
+  // 		"aoColumnDefs": [
+  // 			{ "sSortDataType": "email", "aTargets": [ "_all" ] },
+  // 			{ "sType": "textarea", "aTargets": [ 0 ] }
+  // 		]
+  // 	} );
+  // 	new autoFill( oTable );
+  //
+  //   //kmm
   var table = $('#contacttable').DataTable();
+  //new AutoFill( table  );
   $('#contacttable tbody').on('click', 'tr', function() {
     $(this).toggleClass('selected');
+    //kmm
+    new $.fn.dataTable.AutoFill(table, {
+      mode: 'y'
+    });
+    //kmm
+
+
   });
   inittablerowobject();
 }
 
-function intittable() {}
 
 function displayTemplate() {
   cleartemplate();
@@ -584,43 +629,60 @@ function displayTemplate() {
   try {
     infusionsoft.APIEmailService
       .getEmailTemplate(getthistemplate)
+      .fail(function(err) {
+        $('#ui-accordion-accordion-header-3').html(function(i, val) {
+          return 'Step 4 - Craft Cold Emails - Tempate ERROR in source system'
+        });
+        console.log('uh oh: ' + err);
+      })
+      .done(function(result3) {
+  //      console.log(result3);
+        emptydatatable();
+        //  console.log(result3.subject + 'wtf body' + result3.htmlBody);
+        if (result3 != undefined) {
+          if (result3.subject != "") {
+            $(".viewtemplate").append(result3.subject);
+          } else {
+            $(".viewtemplate").append('WARNING NO SUBJECT LINE - Check your template');
+          };
+          if (result3.htmlBody != null) {
+            $(".viewtemplate").append(result3.htmlBody);
+          };
+          //    $( ".viewtemplate" ).append( result3.htmlBody );
+          // strip can spam from display area as well as in global variable
+          //    console.log($(".viewtemplate").find('tr').last());
+          $(".viewtemplate tr:last").remove();
+          //    $(".viewtemplate").find('tr').slice(0,-1);
+          // var newArr = $(".viewtemplate").html().slice(0, -1);
+          // console.log(newArr);
+          // $('#table tr:last').remove();
+          // $(".viewtemplate").htmlBody = newArr;
+      //    console.log('about to assign current template');
+          currenttemplate = $(".viewtemplate").html();
+      //    console.log('assigned current template');
+          currentsubjectline = result3.subject;
+      //    console.log('assinging current template');
+          findmergefields();
 
-    .done(function(result3) {
-      console.log(result3);
-      emptydatatable();
-      //  console.log(result3.subject + 'wtf body' + result3.htmlBody);
-
-      if (result3.subject != "") {
-        $(".viewtemplate").append(result3.subject);
-      } else {
-        $(".viewtemplate").append('WARNING NO SUBJECT LINE - Check your template');
-      };
-      if (result3.htmlBody != null) {
-        $(".viewtemplate").append(result3.htmlBody);
-      };
-      //    $( ".viewtemplate" ).append( result3.htmlBody );
-      // strip can spam from display area as well as in global variable
-      //    console.log($(".viewtemplate").find('tr').last());
-      $(".viewtemplate tr:last").remove();
-      //    $(".viewtemplate").find('tr').slice(0,-1);
-      // var newArr = $(".viewtemplate").html().slice(0, -1);
-      // console.log(newArr);
-      // $('#table tr:last').remove();
-      // $(".viewtemplate").htmlBody = newArr;
-      console.log('about to assign current template');
-      currenttemplate = $(".viewtemplate").html();
-      console.log('assigned current template');
-      currentsubjectline = result3.subject;
-      console.log('assinging current template');
-      findmergefields();
-
-      $('#ui-accordion-accordion-header-3').html(function(i, val) {
-        return 'Step 4 - Craft Cold Emails - DONE'
+          $('#ui-accordion-accordion-header-3').html(function(i, val) {
+            return 'Step 4 - Craft Cold Emails - DONE'
+          });
+          $('#ui-accordion-accordion-header-5').html(function(i, val) {
+            return 'Step 6 - Filter Contacts'
+          });
+        } else {
+          buildtable();
+          $('#ui-accordion-accordion-header-5').html(function(i, val) {
+            return 'Step 6 - Filter Contacts'
+          });
+        };
       });
-    });
   } catch (err) {
     $('#ui-accordion-accordion-header-3').html(function(i, val) {
       return 'Step 4 - Craft Cold Emails - ERROR ERROR'
+    });
+    $('#ui-accordion-accordion-header-5').html(function(i, val) {
+      return 'Step 6 - Filter Contacts'
     });
   }
 }
@@ -628,6 +690,9 @@ function displayTemplate() {
 
 
 function displayContacts() {
+  $('#ui-accordion-accordion-header-5').html(function(i, val) {
+    return 'Step 6 - Filter Contacts - Loading....'
+  });
   getInfsContacts();
   counterZero();
 }
@@ -644,7 +709,7 @@ function loadtagdropdown() {
       .where(ContactGroupAssign.ContactGroup, getthistag)
       .select(ContactGroupAssign.GroupId, ContactGroupAssign.ContactGroup)
       .orderByDescending('ContactGroup')
-      .take(10000) // FIX THIS! Every tag for every contact is returned as a row.
+      .take(1000) // FIX THIS! Every tag for every contact is returned as a row.
       .toArray()
       .done(function(alltags) {
         for (var j = 0; j < alltags.length; ++j) {
@@ -666,7 +731,45 @@ function loadtagdropdown() {
     $('#ui-accordion-accordion-header-5').html(function(i, val) {
       return err + 'ERROR - ERROR'
     });
+  }
+}
 
+
+function loadtagdropdown2() {
+  var getthistag = "%"; //select all tags -
+  try {
+    // findByField: function(apiKey, table, limit, page, fieldName,
+    //     fieldValue, returnFields) {},
+    infusionsoft.DataService
+      .findByField('ContactGroup', 1000, 0, 'GroupName', '%', ['GroupName', 'Id'])
+      .then(function(alltags) {
+    //    console.log(alltags);
+        for (var j = 0; j < alltags.length; ++j) {
+          mySelect
+            .append($("<option></option>")
+              .attr("value", alltags[j].Id)
+              .text(alltags[j].GroupName));
+        }
+        var usedNames = {};
+        $("select[name='dropdowntags'] > option").each(function() {
+          if (usedNames[this.text]) {
+            $(this).remove();
+          } else {
+            usedNames[this.text] = this.value;
+          }
+        });
+        return alltags;
+      })
+      .fail(function(err) {
+        console.log('uh oh: ' + err);
+      });
+
+    //kmm for all tags do this
+
+  } catch (err) {
+    $('#ui-accordion-accordion-header-5').html(function(i, val) {
+      return err + 'ERROR - ERROR'
+    });
   }
 }
 
@@ -835,12 +938,45 @@ function getInfsContacts() {
             $('#contacttable').dataTable().makeEditable({
               //sUpdateURL: "UpdateData.php", //On the code.google.com POST request is not supported so this line is commeted out
               sUpdateURL: function(value, settings) {
-                console.log(value);
+          //      console.log(value);
                 //Simulation of server-side response using a callback function
                 return (value);
               }, //MUST GET number of columns and type to allow specific edit and validation
               // this code is incomplete
               "aoColumns": [{
+                  indicator: 'Saving now...',
+                  tooltip: 'Click to edit',
+                  type: 'textarea',
+                  submit: 'Save',
+                  //  autoFill: true,
+                  fnOnCellUpdated: function(sStatus, sValue, settings) {
+                    //    alert("(Cell Callback): Cell is updated with value " + sValue);
+                  }
+                }, {
+                  indicator: 'Saving now...',
+                  tooltip: 'Click to edit',
+                  type: 'textarea',
+                  submit: 'Save',
+                  fnOnCellUpdated: function(sStatus, sValue, settings) {
+                    //    alert("(Cell Callback): Cell is updated with value " + sValue);
+                  }
+                }, {
+                  indicator: 'Saving now...',
+                  tooltip: 'Click to edit',
+                  type: 'textarea',
+                  submit: 'Save',
+                  fnOnCellUpdated: function(sStatus, sValue, settings) {
+                    //    alert("(Cell Callback): Cell is updated with value " + sValue);
+                  }
+                }, {
+                  indicator: 'Saving now...',
+                  tooltip: 'Click to edit',
+                  type: 'textarea',
+                  submit: 'Save',
+                  fnOnCellUpdated: function(sStatus, sValue, settings) {
+                    //    alert("(Cell Callback): Cell is updated with value " + sValue);
+                  }
+                }, {
                   indicator: 'Saving now...',
                   tooltip: 'Click to edit',
                   type: 'textarea',
@@ -912,7 +1048,9 @@ function getInfsContacts() {
             var table = $('#contacttable').DataTable();
             table.row.add(rowtoadd).draw();
             inittablerowobject();
-
+            $('#ui-accordion-accordion-header-5').html(function(i, val) {
+              return 'Step 6 - Filter Contacts - DONE'
+            });
             // build Lu/Li table - legacy will be removed after merging is integrated into table button
             // for (var j = 0; j < result2.length; ++j) {
             //   var li = $('<li><input type="checkbox" id="' + result2[j].Id + '" name="sendnow" class="sendnow" value="yes"> Send email to <a target="_blank"></a></li>');
@@ -972,7 +1110,12 @@ function setMode() {
 
   };
 }
+function setSendBcc() {
+  usebccflag = document.getElementById("sendbcc").checked;
+//  console.log(usebccflag);
+}
 document.getElementById("myBtn1").addEventListener("click", setSendFrom);
+document.getElementById("sendbcc").addEventListener("click", setSendBcc);
 document.getElementById("modedropdown").addEventListener("change", setMode);
 document.getElementById("emaildropdown").addEventListener("change", setSendFrom);
 document.getElementById("myBtn").addEventListener("click", loaddropdowns);

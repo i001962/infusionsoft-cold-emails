@@ -42,11 +42,11 @@ app.on('ready', function() {
   });
   updater.on('updateRequired', function() {
   console.log('you have a required update');
-  //  app.quit();
+    app.quit();
   })
   updater.on('updateAvailable', function() {
     console.log('updater is on and update is available');
-    //mainWindow.webContents.send('update-avaislable');
+    mainWindow.webContents.send('update-avaislable');
   })
   updater.start()
 

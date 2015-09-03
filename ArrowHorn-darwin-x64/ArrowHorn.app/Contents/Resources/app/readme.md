@@ -1,1 +1,0 @@
-Send personalized cold sales emails to prospects. Integrates with Infusionsoft. Desktop app runs on Mac. No data is stored or collected by the developer of this app. This app still under development so test your emails before sending and submit issues or enhancement requests to i001962@gmail.com

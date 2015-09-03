@@ -1,15 +1,30 @@
 {
-  "name"    : "infusionsoft-cold-emails",
-  "version" : "0.1.0",
-  "main"    : "main.js",
-  "author": "me",
+  "name": "ArrowHorn",
+  "version": "0.1.2",
+  "main": "main.js",
+  "author": "i001962",
+  "scripts": {
+    "start": "Electron",
+    "package": "asar pack arrowhorn-darwin-x64/arrowhorn.app/Contents/Resources/app arrowhorn-darwin-x64/arrowhorn.app/Contents/Resources/app.asar && rm -rf arrowhorn-darwin-x64/arrowhorn.app/Contents/Resources/app",
+    "build": "electron-packager . ArrowHorn --platform=darwin --arch=x64 --version=0.27.2 && cp images/ah.icns arrowhorn-darwin-x64/arrowhorn.app/Contents/Resources/atom.icns"
+  },
   "window": {
-  "toolbar": true,
-  "width": 800,
-  "height": 500
-   },
+    "toolbar": true,
+    "width": 800,
+    "height": 500
+  },
   "license": "ISC",
   "dependencies": {
-  "pretty-bytes": "^1.0.2"
+    "electron-plugins": "0.0.3",
+    "electron-updater": "^0.1.3",
+    "emailjs": "^0.3.16",
+    "google-spreadsheet": "^1.0.1",
+    "infusionsoft-api": "^0.6.0",
+    "pretty-bytes": "^1.0.2"
+  },
+  "registry": "http://localhost:4873/",
+  "devDependencies": {
+    "asar": "^0.8.0",
+    "electron-packager": "^5.0.2"
   }
 }

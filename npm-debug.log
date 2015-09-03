@@ -1,24 +1,224 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node', '/usr/local/bin/npm', 'start' ]
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'version', 'patch' ]
 2 info using npm@2.11.3
 3 info using node@v0.12.7
-4 verbose stack Error: missing script: start
-4 verbose stack     at run (/usr/local/lib/node_modules/npm/lib/run-script.js:142:19)
-4 verbose stack     at /usr/local/lib/node_modules/npm/lib/run-script.js:58:5
-4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:345:5
-4 verbose stack     at checkBinReferences_ (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:309:45)
-4 verbose stack     at final (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:343:3)
-4 verbose stack     at then (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:113:5)
-4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:300:12
-4 verbose stack     at evalmachine.<anonymous>:334:14
-4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:102:5
-4 verbose stack     at FSReqWrap.oncomplete (evalmachine.<anonymous>:95:15)
-5 verbose cwd /Users/kevinmcdonald/Downloads/infusionsoft-cold-emails
-6 error Darwin 14.4.0
-7 error argv "node" "/usr/local/bin/npm" "start"
-8 error node v0.12.7
-9 error npm  v2.11.3
-10 error missing script: start
-11 error If you need help, you may report this error at:
-11 error     <https://github.com/npm/npm/issues>
-12 verbose exit [ 1, true ]
+4 info preversion ArrowHorn@0.1.3
+5 info git [ 'status', '--porcelain' ]
+6 verbose stack Error: Error: Git working directory not clean.
+6 verbose stack M index.html
+6 verbose stack M main.js
+6 verbose stack M node_modules/emailjs/node_modules/bufferjs/package.json
+6 verbose stack M node_modules/emailjs/node_modules/mimelib/package.json
+6 verbose stack M node_modules/emailjs/node_modules/moment/package.json
+6 verbose stack M node_modules/emailjs/node_modules/starttls/package.json
+6 verbose stack D node_modules/google-spreadsheet/node_modules/async/.jscsrc
+6 verbose stack M node_modules/google-spreadsheet/node_modules/async/CHANGELOG.md
+6 verbose stack D node_modules/google-spreadsheet/node_modules/async/README.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/async/lib/async.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/async/package.json
+6 verbose stack D node_modules/google-spreadsheet/node_modules/async/support/sync-package-managers.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/async/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/CHANGELOG.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/README.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/index.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/core-util-is/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/inherits/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/isarray/package.json
+6 verbose stack D node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/.jscsrc
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/CHANGELOG.md
+6 verbose stack D node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/README.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/lib/async.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/package.json
+6 verbose stack D node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/support/sync-package-managers.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/chalk/index.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/chalk/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/chalk/readme.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/README.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/.travis.yml
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/README.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/jsonpointer.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/test.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/xtend/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/hawk/node_modules/hoek/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/http-signature/node_modules/asn1/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/http-signature/node_modules/assert-plus/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/http-signature/node_modules/ctype/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/isstream/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/json-stringify-safe/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/HISTORY.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/index.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/node_modules/mime-db/HISTORY.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/node_modules/mime-db/db.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/node_modules/mime-db/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/node-uuid/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/request.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/concat-stream/node_modules/inherits/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/concat-stream/node_modules/readable-stream/node_modules/core-util-is/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/concat-stream/node_modules/readable-stream/node_modules/isarray/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/concat-stream/node_modules/readable-stream/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/meow/node_modules/indent-string/node_modules/get-stdin/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/meow/node_modules/minimist/index.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/meow/node_modules/minimist/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/lib/asn1/base/node.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/lib/asn1/decoders/der.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/lib/asn1/encoders/der.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/node_modules/inherits/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/test/ping-pong-test.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/core-util-is/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/inherits/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/isarray/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/bl/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/http-signature/node_modules/asn1/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/http-signature/node_modules/assert-plus/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/http-signature/node_modules/ctype/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/json-stringify-safe/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/node-uuid/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/lodash/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/node_modules/form-data/node_modules/async/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/node_modules/hawk/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/node_modules/http-signature/node_modules/asn1/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/node_modules/http-signature/node_modules/assert-plus/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/node_modules/http-signature/node_modules/ctype/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/node_modules/json-stringify-safe/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/node_modules/node-uuid/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/node_modules/tough-cookie/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/node_modules/tunnel-agent/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/request/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/xml2js/.travis.yml
+6 verbose stack M node_modules/google-spreadsheet/node_modules/xml2js/README.md
+6 verbose stack M node_modules/google-spreadsheet/node_modules/xml2js/lib/xml2js.js
+6 verbose stack M node_modules/google-spreadsheet/node_modules/xml2js/node_modules/sax/LICENSE
+6 verbose stack M node_modules/google-spreadsheet/node_modules/xml2js/node_modules/sax/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/xml2js/node_modules/xmlbuilder/package.json
+6 verbose stack M node_modules/google-spreadsheet/node_modules/xml2js/package.json
+6 verbose stack M node_modules/google-spreadsheet/package.json
+6 verbose stack M node_modules/infusionsoft-api/node_modules/inflection/package.json
+6 verbose stack M node_modules/infusionsoft-api/node_modules/typedef/package.json
+6 verbose stack M node_modules/infusionsoft-api/node_modules/xmlrpc/node_modules/xmlbuilder/package.json
+6 verbose stack M node_modules/infusionsoft-api/package.json
+6 verbose stack M npm-debug.log
+6 verbose stack M package.json
+6 verbose stack M script.js
+6 verbose stack     at /usr/local/lib/node_modules/npm/lib/version.js:71:23
+6 verbose stack     at /usr/local/lib/node_modules/npm/lib/version.js:151:34
+6 verbose stack     at ChildProcess.exithandler (child_process.js:742:7)
+6 verbose stack     at ChildProcess.emit (events.js:110:17)
+6 verbose stack     at maybeClose (child_process.js:1015:16)
+6 verbose stack     at Socket.<anonymous> (child_process.js:1183:11)
+6 verbose stack     at Socket.emit (events.js:107:17)
+6 verbose stack     at Pipe.close (net.js:485:12)
+7 verbose cwd /Users/kevinmcdonald/Downloads/ArrowHorn
+8 error Darwin 14.5.0
+9 error argv "node" "/usr/local/bin/npm" "version" "patch"
+10 error node v0.12.7
+11 error npm  v2.11.3
+12 error Error: Git working directory not clean.
+12 error M index.html
+12 error M main.js
+12 error M node_modules/emailjs/node_modules/bufferjs/package.json
+12 error M node_modules/emailjs/node_modules/mimelib/package.json
+12 error M node_modules/emailjs/node_modules/moment/package.json
+12 error M node_modules/emailjs/node_modules/starttls/package.json
+12 error D node_modules/google-spreadsheet/node_modules/async/.jscsrc
+12 error M node_modules/google-spreadsheet/node_modules/async/CHANGELOG.md
+12 error D node_modules/google-spreadsheet/node_modules/async/README.md
+12 error M node_modules/google-spreadsheet/node_modules/async/lib/async.js
+12 error M node_modules/google-spreadsheet/node_modules/async/package.json
+12 error D node_modules/google-spreadsheet/node_modules/async/support/sync-package-managers.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/async/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/CHANGELOG.md
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/README.md
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/index.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/core-util-is/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/inherits/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/isarray/package.json
+12 error D node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/.jscsrc
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/CHANGELOG.md
+12 error D node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/README.md
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/lib/async.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/package.json
+12 error D node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/node_modules/async/support/sync-package-managers.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/form-data/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/chalk/index.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/chalk/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/chalk/readme.md
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/README.md
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/.travis.yml
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/README.md
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/jsonpointer.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/jsonpointer/test.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/node_modules/xtend/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/har-validator/node_modules/is-my-json-valid/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/hawk/node_modules/hoek/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/http-signature/node_modules/asn1/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/http-signature/node_modules/assert-plus/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/http-signature/node_modules/ctype/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/isstream/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/json-stringify-safe/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/HISTORY.md
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/index.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/node_modules/mime-db/HISTORY.md
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/node_modules/mime-db/db.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/node_modules/mime-db/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/mime-types/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/node_modules/node-uuid/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/gtoken/node_modules/request/request.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/concat-stream/node_modules/inherits/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/concat-stream/node_modules/readable-stream/node_modules/core-util-is/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/concat-stream/node_modules/readable-stream/node_modules/isarray/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/concat-stream/node_modules/readable-stream/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/meow/node_modules/indent-string/node_modules/get-stdin/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/meow/node_modules/minimist/index.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/base64url/node_modules/meow/node_modules/minimist/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/lib/asn1/base/node.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/lib/asn1/decoders/der.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/lib/asn1/encoders/der.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/node_modules/inherits/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/jws/node_modules/jwa/node_modules/ecdsa-sig-formatter/node_modules/asn1.js/test/ping-pong-test.js
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/core-util-is/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/inherits/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/bl/node_modules/readable-stream/node_modules/isarray/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/bl/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/http-signature/node_modules/asn1/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/http-signature/node_modules/assert-plus/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/http-signature/node_modules/ctype/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/json-stringify-safe/package.json
+12 error M node_modules/google-spreadsheet/node_modules/google-auth-library/node_modules/request/node_modules/node-uuid/package.json
+12 error M node_modules/google-spreadsheet/node_modules/lodash/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/node_modules/form-data/node_modules/async/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/node_modules/hawk/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/node_modules/http-signature/node_modules/asn1/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/node_modules/http-signature/node_modules/assert-plus/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/node_modules/http-signature/node_modules/ctype/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/node_modules/json-stringify-safe/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/node_modules/node-uuid/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/node_modules/tough-cookie/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/node_modules/tunnel-agent/package.json
+12 error M node_modules/google-spreadsheet/node_modules/request/package.json
+12 error M node_modules/google-spreadsheet/node_modules/xml2js/.travis.yml
+12 error M node_modules/google-spreadsheet/node_modules/xml2js/README.md
+12 error M node_modules/google-spreadsheet/node_modules/xml2js/lib/xml2js.js
+12 error M node_modules/google-spreadsheet/node_modules/xml2js/node_modules/sax/LICENSE
+12 error M node_modules/google-spreadsheet/node_modules/xml2js/node_modules/sax/package.json
+12 error M node_modules/google-spreadsheet/node_modules/xml2js/node_modules/xmlbuilder/package.json
+12 error M node_modules/google-spreadsheet/node_modules/xml2js/package.json
+12 error M node_modules/google-spreadsheet/package.json
+12 error M node_modules/infusionsoft-api/node_modules/inflection/package.json
+12 error M node_modules/infusionsoft-api/node_modules/typedef/package.json
+12 error M node_modules/infusionsoft-api/node_modules/xmlrpc/node_modules/xmlbuilder/package.json
+12 error M node_modules/infusionsoft-api/package.json
+12 error M npm-debug.log
+12 error M package.json
+12 error M script.js
+13 error If you need help, you may report this error at:
+13 error     <https://github.com/npm/npm/issues>
+14 verbose exit [ 1, true ]

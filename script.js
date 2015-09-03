@@ -7,6 +7,7 @@ var api = require('infusionsoft-api');
 var infusionsoft = new api.DataContext($('#l').val(), $('#api').val());
 var mergefieldmu = [];
 var mergefieldINFSList = [];
+var sendtoemailarrayposition = 100;
 //var currentsubjectline = "";
 var host = $('#host').val();
 var user = $('#user').val();
@@ -34,7 +35,7 @@ var mergefieldvalue = [
   [01, 02, 03, 04],
   [10, 11, 12, 13]
 ];
-var sendingfrom = "i001962@gmail.com"; // hack until config settings page
+var sendingfrom = $("#emaildropdown option:selected").attr('value');
 var modesetto = "infusionsoft"; // hack until config settings page
 var currenttemplate = "";
 var currentsubjectline = "";
@@ -410,9 +411,9 @@ function counterZero() {
 
 function sendemail(emailthisperson) {
 var bccaddress = "";
-  // console.log('from email account: ' + sendingfrom);
-  // console.log('you are sending email to ');
-  // console.log(emailthisperson);
+   console.log('from email account: ' + sendingfrom);
+   console.log('you are sending email to ');
+   console.log(emailthisperson[sendtoemailarrayposition]);
   // console.log('send a bcc :' + usebccflag)
   if (usebccflag){
     bccaddress = sendingfrom
@@ -466,10 +467,12 @@ var bccaddress = "";
     } // use for sendgrid & outlook
   });
   //		send the message and get a callback with an error or details of the message that was sent
+//  console.log(emailthisperson[emailthisperson.length-2]);
   server.send({
     text: 'this is first test',
     from: sendingfrom,
-    to: "i001962@gmail.com",
+  //  to: "i001962@gmail.com",
+    to: emailthisperson[sendtoemailarrayposition],
     bcc: bccaddress,
     //   to:      emailthisperson.target.id,
     subject: grabsubjectline[1],
@@ -548,6 +551,8 @@ function findmergefields() {
   };
   if ($.inArray("~Contact.Email~", mergefieldmu) > -1) {
     flagemailalreadyincluded = true;
+    sendtoemailarrayposition = $.inArray("~Contact.Email~", mergefieldmu);
+    console.log('the email address is in array position: ' + $.inArray("~Contact.Email~", mergefieldmu));
   };
 //  console.log(mergefieldmu.length);
   for (var j = 0; j < mergefieldmu.length; ++j) {
@@ -564,6 +569,9 @@ function findmergefields() {
   // console.log(flagemailalreadyincluded);
   if (!flagemailalreadyincluded) {
     mergefieldvalue[j] = ["~Contact.Email~", "Contact", "Email", " /~Contact.Email~/g"];
+    sendtoemailarrayposition = j;
+    console.log('the email address is in array position: ' + j);
+
   };
   //  console.log(mergefieldvalue);
 
@@ -643,7 +651,7 @@ function displayTemplate() {
           if (result3.subject != "") {
             $(".viewtemplate").append(result3.subject);
           } else {
-            $(".viewtemplate").append('WARNING NO SUBJECT LINE - Check your template');
+            $(".viewtemplate").append('WARNING NO SUBJECT LINE - Check your template or edit inline here');
           };
           if (result3.htmlBody != null) {
             $(".viewtemplate").append(result3.htmlBody);
@@ -1126,3 +1134,18 @@ document.getElementById("debugmode").addEventListener("click", debugnow);
 
 //		infusionsoft.addToGroup(ContactGroupAssign.ContactId, '174')
 //console.log(ContactGroupAssign.ContactId + 'trying to add tag here');
+var plugins = require('electron-plugins'),
+    ipc = require('ipc')
+
+document.addEventListener('DOMContentLoaded', function () {
+    var context = { document: document }
+    console.log('you are in plugins listener');
+    plugins.load(context, function (err, loaded) {
+        if(err) return console.error(err)
+        console.log('Plugins loaded successfully.')
+    })
+})
+
+ipc.on('update-available', function () {
+    console.log('there is an update available for download')
+})

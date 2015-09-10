@@ -1,9 +1,11 @@
 // Using index.html for input to call Infusionsoft and find all contacts for a tag
+var currentversion = 'Version 0.0.5';
 var ul = $('.demo ul');
 var dd = $('.tagsdropdown select');
 var mySelect = $("#tagsdropdown");
 var mySelectTemplates = $("#templatesdropdown");
 var api = require('infusionsoft-api');
+require('electron-cookies')
 var infusionsoft = new api.DataContext($('#l').val(), $('#api').val());
 var mergefieldmu = [];
 var mergefieldINFSList = [];
@@ -16,6 +18,7 @@ var ssl = $('#ssl').val();
 var tls = $('#tls').val();
 var port = $('#port').val();
 var debugmodeon = false;
+var removeTagchecked = false;
 var usebccflag = false;
 var today = "";
 var dayofweektext = "";
@@ -46,7 +49,9 @@ var countertemp = 0;
 
 $(document).ready(function() {
   console.log("ready!");
-
+  $('#currentversion').html(function(i, val) {
+    return currentversion
+  });
   $("#emailmodes").hide();
   $('#contacttable').dataTable({
     bSort: false,
@@ -114,7 +119,7 @@ function mergeprep(sendingToArray) {
     for (var kmm = 0; kmm < sendingToArray[km].length; ++kmm) {
       mergefieldvalue[kmm].push(sendingToArray[km][kmm]);
     }
-//    console.log(mergefieldvalue);
+    //    console.log(mergefieldvalue);
     //    console.log(currentsubjectline);
     //  var newsubjectline = replaceMergefields(1, mergefieldvalue, currentsubjectline);
     var newbodytext = replaceMergefields(2, mergefieldvalue, currenttemplate);
@@ -126,7 +131,7 @@ function mergeprep(sendingToArray) {
       sendingToArray[km].push(newbodytext);
       console.log(sendingToArray[km]);
       sendemail(sendingToArray[km]);
-
+      removeTag(sendingToArray[km]);
 
       //need last or second to last contact in sendingtoarray?? always grabbing same is broken
     };
@@ -204,15 +209,15 @@ function debugnow() {
 
 function replaceMergefields(typeoftext, contactsfieldstomergelocal, texttoregex) {
   //  console.log(typeoftext);
-//  console.log(contactsfieldstomergelocal);
+  //  console.log(contactsfieldstomergelocal);
   //    console.log(texttoregex);
   if (typeoftext === 1) { //subject line to be replaced and returned
-//    console.log('You are in subjectline regex replace');
+    //    console.log('You are in subjectline regex replace');
     var localnewsubjectline = findwithregex(texttoregex);
-//    console.log(localnewsubjectline);
+    //    console.log(localnewsubjectline);
     return localnewsubjectline;
   } else { // bodytext of the email to be replaced and returned
-//    console.log('You are in bodytext regex replace');
+    //    console.log('You are in bodytext regex replace');
     var localnewbodytext = findwithregex(texttoregex);
     //  console.log(localnewbodytext);
     return localnewbodytext;
@@ -262,7 +267,7 @@ function loadInfsContact(theid) {
   infusionsoft.ContactService
     .load(theid, findthesefields)
     .done(function(result5) {
-    //  console.log(result5);
+      //  console.log(result5);
       contactselectfields = result5;
       // add these results to the mergefieldvalue array of arrays - unbalanced
       for (var i = 0; i < mergefieldvalue.length; ++i) {
@@ -372,22 +377,24 @@ function setSendFrom() {
   });
 }
 
-function loginUser() {
-  $('#errmsgs').html(""); // clear error messages
-  infusionsoft.DataService
-    //  .authenticateUser($("#emaildropdown option:selected").attr('value'), '3215a1b0a54ccadf454fc9cb70e97505')
-    .getTemporaryKey("ruh46nkjtkebd3w2qbwvde6g", "YsVf6kHdCF", $("#emaildropdown option:selected").attr('value'), "3215a1b0a54ccadf454fc9cb70e97505")
-    .then(
-      console.log('Hello ')
-    )
-    .fail(function(err) {
-      console.log('uh oh: ' + err);
-      $('#errmsgs').html(err);
-    });
-}
+// function loginUser() {
+//   $('#errmsgs').html(""); // clear error messages
+//   infusionsoft.DataService
+//     //  .authenticateUser($("#emaildropdown option:selected").attr('value'), '3215a1b0a54ccadf454fc9cb70e97505')
+//     .getTemporaryKey("ruh46nkjtkebd3w2qbwvde6g", "YsVf6kHdCF", $("#emaildropdown option:selected").attr('value'), "3215a1b0a54ccadf454fc9cb70e97505")
+//     .then(
+//       console.log('Hello ')
+//     )
+//     .fail(function(err) {
+//       console.log('uh oh: ' + err);
+//       $('#errmsgs').html(err);
+//     });
+// }
 
 function loaddropdowns() {
+
   infusionsoft = new api.DataContext($('#l').val(), $('#api').val());
+
   //  loginUser(); // validate API credentials // not used this rev. will move to oAuth
   loadtemplatedropdown()
   loadtagdropdown2();
@@ -410,17 +417,18 @@ function counterZero() {
 }
 
 function sendemail(emailthisperson) {
-var bccaddress = "";
-   console.log('from email account: ' + sendingfrom);
-   console.log('you are sending email to ');
-   console.log(emailthisperson[sendtoemailarrayposition]);
+  var bccaddress = "";
+  console.log('from email account: ' + sendingfrom);
+  console.log('you are sending email to ');
+  console.log(emailthisperson[sendtoemailarrayposition]);
+  //  console.log(emailthisperson);
   // console.log('send a bcc :' + usebccflag)
-  if (usebccflag){
+  if (usebccflag) {
     bccaddress = sendingfrom
   };
   //console.log(thenewsubjectline);
   var grabsubjectline = emailthisperson[emailthisperson.length - 1].match(/^(.*?)\</);
-//  console.log(grabsubjectline[1]);
+  //  console.log(grabsubjectline[1]);
   //  emailthisperson[emailthisperson.length - 1].replace(/^[^<]*</, '');
   //  console.log(emailthisperson[emailthisperson.length - 1]);
   //emailthisperson[emailthisperson.length - 1] = /^[^<]*</.exec(emailthisperson[emailthisperson.length - 1])[1];
@@ -467,26 +475,35 @@ var bccaddress = "";
     } // use for sendgrid & outlook
   });
   //		send the message and get a callback with an error or details of the message that was sent
-//  console.log(emailthisperson[emailthisperson.length-2]);
-  server.send({
-    text: 'this is first test',
-    from: sendingfrom,
-  //  to: "i001962@gmail.com",
-    to: emailthisperson[sendtoemailarrayposition],
-    bcc: bccaddress,
-    //   to:      emailthisperson.target.id,
-    subject: grabsubjectline[1],
-    attachment: [{
-      data: emailbody,
-      alternative: true //research sendgrid if necessary
-        //  alternative: false //research sendgrid if necessary
-    }]
-  }, function(err, message) {
-    $('#ui-accordion-accordion-header-7').html(function(i, val) {
-      return err || message;
+  //  console.log(emailthisperson[emailthisperson.length-2]);
+  try {
+    server.send({
+      text: 'this is first test',
+      from: sendingfrom,
+      //  to: "i001962@gmail.com",
+      to: emailthisperson[sendtoemailarrayposition],
+      bcc: bccaddress,
+      //   to:      emailthisperson.target.id,
+      subject: grabsubjectline[1],
+      attachment: [{
+        data: emailbody,
+        alternative: true //research sendgrid if necessary
+          //  alternative: false //research sendgrid if necessary
+      }]
+    }, function(err, message) {
+      $('#ui-accordion-accordion-header-7').html(function(i, val) {
+        return err || message;
+      });
+      console.log(err || message);
     });
-    console.log(err || message);
-  });
+  } catch (err) {
+    $('#ui-accordion-accordion-header-6').html(function(i, val) {
+      return 'Step 7 - Review links, Edit merge data then Send -- Error Sending'
+    });
+    console.log('uh oh ' + err);
+    $('#removetag').attr('checked', false);
+    removeTagchecked = false;
+  }
 }
 
 function logColdEmails(contactidtoemail) {
@@ -542,7 +559,7 @@ function findmergefields() {
   // if (mergefieldmu[j] == '~Contact.Email~') {
   //   flagemailalreadyincluded = true;
   // }
-//  console.log('How many merge fields? ' + mergefieldmu);
+  //  console.log('How many merge fields? ' + mergefieldmu);
   if (mergefieldmu == null) {
 
     mergefieldmu = ["~Contact.Email~"];
@@ -554,13 +571,13 @@ function findmergefields() {
     sendtoemailarrayposition = $.inArray("~Contact.Email~", mergefieldmu);
     console.log('the email address is in array position: ' + $.inArray("~Contact.Email~", mergefieldmu));
   };
-//  console.log(mergefieldmu.length);
+  //  console.log(mergefieldmu.length);
   for (var j = 0; j < mergefieldmu.length; ++j) {
     // split to find INFS object eg Contact and field names eg email
     var splitmergefields = mergefieldmu[j].match(/[^\~.]+/g);
     //build the regex needed to replace token in template for each mergefieldvalue
     var re = new RegExp(mergefieldmu[j], "g");
-  //  console.log(re);
+    //  console.log(re);
     mergefieldvalue[j] = [mergefieldmu[j], splitmergefields[0], splitmergefields[1], re];
 
     //KMM insert dup mergefield check and eliminate - must confirm replace into email is ok with that
@@ -588,7 +605,7 @@ function findmergefields() {
 }
 
 function buildtable() {
-//  console.log('about to draw headers');
+  //  console.log('about to draw headers');
   $('#contacttable').DataTable({
     retrieve: true,
     destroy: true,
@@ -644,7 +661,7 @@ function displayTemplate() {
         console.log('uh oh: ' + err);
       })
       .done(function(result3) {
-  //      console.log(result3);
+        //      console.log(result3);
         emptydatatable();
         //  console.log(result3.subject + 'wtf body' + result3.htmlBody);
         if (result3 != undefined) {
@@ -665,11 +682,11 @@ function displayTemplate() {
           // console.log(newArr);
           // $('#table tr:last').remove();
           // $(".viewtemplate").htmlBody = newArr;
-      //    console.log('about to assign current template');
+          //    console.log('about to assign current template');
           currenttemplate = $(".viewtemplate").html();
-      //    console.log('assigned current template');
+          //    console.log('assigned current template');
           currentsubjectline = result3.subject;
-      //    console.log('assinging current template');
+          //    console.log('assinging current template');
           findmergefields();
 
           $('#ui-accordion-accordion-header-3').html(function(i, val) {
@@ -699,7 +716,7 @@ function displayTemplate() {
 
 function displayContacts() {
   $('#ui-accordion-accordion-header-5').html(function(i, val) {
-    return 'Step 6 - Filter Contacts - Loading....'
+    return 'Step 6 - Filter Contacts - Looking....'
   });
   getInfsContacts();
   counterZero();
@@ -751,7 +768,7 @@ function loadtagdropdown2() {
     infusionsoft.DataService
       .findByField('ContactGroup', 1000, 0, 'GroupName', '%', ['GroupName', 'Id'])
       .then(function(alltags) {
-    //    console.log(alltags);
+        //    console.log(alltags);
         for (var j = 0; j < alltags.length; ++j) {
           mySelect
             .append($("<option></option>")
@@ -770,13 +787,16 @@ function loadtagdropdown2() {
       })
       .fail(function(err) {
         console.log('uh oh: ' + err);
+        $('#ui-accordion-accordion-header-2').html(function(i, val) {
+          return 'Step 3 - Source Integration Settings - ERROR Connection Failed'
+        });
       });
 
     //kmm for all tags do this
 
   } catch (err) {
-    $('#ui-accordion-accordion-header-5').html(function(i, val) {
-      return err + 'ERROR - ERROR'
+    $('#ui-accordion-accordion-header-2').html(function(i, val) {
+      return 'Step 3 - Source Integration Settings - ERROR Connection Failed'
     });
   }
 }
@@ -794,6 +814,9 @@ function loadtemplatedropdown() {
       .toArray()
       .fail(function(err) {
         console.log('uh oh: ' + err);
+        $('#ui-accordion-accordion-header-3').html(function(i, val) {
+          return err + 'ERROR - Failed to connect'
+        });
       })
       .done(function(alltemplates) {
         for (var j = 0; j < alltemplates.length; ++j) {
@@ -819,7 +842,40 @@ function loadtemplatedropdown() {
 
   }
 }
+//kmm
+function removeTagSetter() {
+  removeTagchecked = !removeTagchecked;
+  console.log('removeTag when sending emial: ' + removeTagchecked);
+  //kmm remove after testing
+  //removeTag('i001962@gmail.com');
+}
 
+function removeTag(emailthisperson) {
+  var getthistag = $("#tagsdropdown option:selected").attr("value");
+  console.log('you are in the removetag function with ' + removeTagchecked);
+  console.log(emailthisperson[sendtoemailarrayposition]);
+  console.log(getthistag);
+  var removethistag = $("#tagsdropdown option:selected").text();
+  if (removeTagchecked) {
+    infusionsoft.ContactService
+      //  .findByEmail(emailthisperson[sendtoemailarrayposition], ['Id', 'FirstName', 'LastName'])
+      .findByEmail(emailthisperson[sendtoemailarrayposition], ['Id', 'FirstName', 'LastName'])
+      .done(function(result) {
+        console.log(result);
+        for (var k = 0; k < result.length; ++k) {
+          infusionsoft.ContactService
+            .removeFromGroup(result[k].Id, getthistag)
+            .then(function(user) {
+              console.log('tag removed ');
+            })
+            .fail(function(err) {
+              console.log('uh oh: ' + err);
+            });
+        };
+      });
+  };
+};
+//kmm
 function getInfsContacts() {
   removecontactlist();
 
@@ -946,7 +1002,7 @@ function getInfsContacts() {
             $('#contacttable').dataTable().makeEditable({
               //sUpdateURL: "UpdateData.php", //On the code.google.com POST request is not supported so this line is commeted out
               sUpdateURL: function(value, settings) {
-          //      console.log(value);
+                //      console.log(value);
                 //Simulation of server-side response using a callback function
                 return (value);
               }, //MUST GET number of columns and type to allow specific edit and validation
@@ -1118,9 +1174,10 @@ function setMode() {
 
   };
 }
+
 function setSendBcc() {
   usebccflag = document.getElementById("sendbcc").checked;
-//  console.log(usebccflag);
+  //  console.log(usebccflag);
 }
 document.getElementById("myBtn1").addEventListener("click", setSendFrom);
 document.getElementById("sendbcc").addEventListener("click", setSendBcc);
@@ -1131,21 +1188,24 @@ document.getElementById("tagsdropdown").addEventListener("change", displayContac
 document.getElementById("templatesdropdown").addEventListener("change", displayTemplate);
 document.getElementById("myBtnlaunch").addEventListener("click", displayContactsGDoc);
 document.getElementById("debugmode").addEventListener("click", debugnow);
+document.getElementById("removetag").addEventListener("click", removeTagSetter);
 
 //		infusionsoft.addToGroup(ContactGroupAssign.ContactId, '174')
 //console.log(ContactGroupAssign.ContactId + 'trying to add tag here');
-var plugins = require('electron-plugins'),
-    ipc = require('ipc')
-
-document.addEventListener('DOMContentLoaded', function () {
-    var context = { document: document }
-    console.log('you are in plugins listener');
-    plugins.load(context, function (err, loaded) {
-        if(err) return console.error(err)
-        console.log('Plugins loaded successfully.')
-    })
-})
-
-ipc.on('update-available', function () {
-    console.log('there is an update available for download')
-})
+// var plugins = require('electron-plugins'),
+//   ipc = require('ipc')
+//
+// document.addEventListener('DOMContentLoaded', function () {
+//     var context = { document: document }
+//     console.log('you are in plugins listener');
+//     plugins.load(context, function (err, loaded) {
+//       console.log('Plugins next we check for successfully.')
+//
+//         if(err) return console.error(err)
+//         console.log('Plugins loaded successfully.')
+//     })
+// })
+//
+// ipc.on('update-available', function () {
+//     console.log('there is an update available for download')
+// })

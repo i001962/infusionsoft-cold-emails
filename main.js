@@ -1,6 +1,6 @@
 var app = require('app'); // Module to control application life.
 var BrowserWindow = require('browser-window'); // Module to create native browser window.
-var updater = require('electron-updater');
+//var updater = require('electron-updater');
 // Report crashes to our server.
 require('crash-reporter').start();
 var Menu = require("menu");
@@ -9,6 +9,11 @@ var Menu = require("menu");
 // be closed automatically when the javascript object is GCed.
 var mainWindow = null;
 
+//kmm
+// On the main process.
+var window = null;
+
+//KMM
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin')
@@ -18,7 +23,30 @@ app.on('window-all-closed', function() {
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
-  updater.on('ready', function() {
+//kmm
+  // window = new BrowserWindow({width: 800, height: 600});
+  // window.loadUrl('http://arrrowhorn-email.com/wp/demo.html');
+  // window.webContents.on('did-finish-load', function() {
+  //   window.webContents.send('ping', 'whoooooooh!');
+  //   console.log('getting title of page');
+  //   console.log(window.webContents.getTitle());
+  //   // use electron --debug=5858 main.js to debug main.js
+  //   if (window.webContents.getTitle() === 'Version 0.0.5') {
+  //     console.log('new update is not needed');
+  //   } else {
+  //     console.log('download the new payload, quit the app and restart??')
+  //     mainWindow = new BrowserWindow({
+  //       width: 800,
+  //       height: 600
+  //     });
+  //
+  //     // and load the index.html of the app.
+  //     mainWindow.loadUrl('file://' + __dirname + '/update.html');
+  //     //app.quit();
+  //   }
+  // });
+
+  //KMM
     // Create the browser window.
     console.log('the updater says you are ready!');
     mainWindow = new BrowserWindow({
@@ -28,6 +56,7 @@ app.on('ready', function() {
 
     // and load the index.html of the app.
     mainWindow.loadUrl('file://' + __dirname + '/index.html');
+//   mainWindow.loadUrl('http://arrrowhorn-email.com/wp/demo.html');
 
     // Open the devtools.
     //mainWindow.openDevTools();
@@ -39,16 +68,8 @@ app.on('ready', function() {
       // when you should delete the corresponding element.
       mainWindow = null;
     });
-  });
-  updater.on('updateRequired', function() {
-  console.log('you have a required update');
-    app.quit();
-  })
-  updater.on('updateAvailable', function() {
-    console.log('updater is on and update is available');
-    mainWindow.webContents.send('update-avaislable');
-  })
-  updater.start()
+
+
 
   // Create the Application's main menu
   var template = [{

@@ -160,17 +160,20 @@
     <H4>Advanced Settings
       <input type="checkbox" id="debugmode" name="debugmode" class="debugmode">
     </H4>
+      <div id='currentversion' value='Version 0.0.5'> </div>
+      <webview id="foo" src="http://arrrowhorn-email.com/wp/demo.html" style="display:inline-block; height:40px; background: black; color: white;"></webview>
   </div>
   <div id="accordion">
     <h3>Step 1 - Set SendFrom eMail Address</h3>
     <div class="emailselector">
+
       <div>
         <select id='emaildropdown' name='dropdownemail'>
             <option value="achild@knowingtechnologies.com">achild@knowingtechnologies.com</option>
         </select>
         <p><input type="checkbox" id="sendbcc" name="sendbcc"> Yes, add this email address as a bcc.</p>
 
-        <p><a href="http://test.com" target="_blank">Register to add a Send From email address</a></p>
+        <p><a href="http://arrrowhorn-email.com/wp/index.php/homepage/" target="_blank">Register to add a sendFrom email address</a></p>
 
 
 
@@ -183,7 +186,7 @@
               <label for="user" style="color: white">User</label>
               <input id="user" autocomplete="off" value="i001962" />
               <label for="pass" style="color: white">Password</label>
-              <input id="pass" autocomplete="off" value="HAeGzEGtdvh34r" />
+              <input id="pass" autocomplete="off" value="thiswillbechanged1" />
               <label for="ssl" style="color: white">SSL</label>
               <input id="ssl" autocomplete="off" placeholder="true" value="" />
               <label for="tls" style="color: white">TLS</label>
@@ -213,7 +216,7 @@
         <p>* This key is NEVER sent to ArrowHorn.</p>
         <form action="">
           <input id="l" autocomplete="off" value="af259" />
-          <input id="api" autocomplete="off" value="ea696d05aca61279c4b42bc809c3d23a" />
+          <input id="api" autocomplete="off" value="46fa040208f76dbdf7cccda1bd3a0631" />
         </form>
         <button class="myButton" id="myBtn">Connect</button>
         <p id='errmsgs'></p>
@@ -267,6 +270,8 @@
       <!-- <p class="countemails" id="countemails" style="color: green; font-size: 22px">0
         </p> -->
       <button class="myButton" id="contacttablebutton">Send eMail</button>
+      <h4> Remove tag after sending email? <input type="checkbox" id="removetag" name="removetag" class="removetag">
+</h4>
       <table id="contacttable" class="display" cellspacing="0" width="100%">
       </table>
     </div>

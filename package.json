@@ -6,7 +6,7 @@
   "scripts": {
     "start": "Electron",
     "package": "asar pack arrowhorn-darwin-x64/arrowhorn.app/Contents/Resources/app arrowhorn-darwin-x64/arrowhorn.app/Contents/Resources/app.asar && rm -rf arrowhorn-darwin-x64/arrowhorn.app/Contents/Resources/app",
-    "build": "electron-packager . ArrowHorn --platform=darwin --arch=x64 --version=0.27.2 && cp images/ah.icns arrowhorn-darwin-x64/arrowhorn.app/Contents/Resources/atom.icns"
+    "build": "electron-packager . ArrowHorn --ignore=node_modules/electron-* --platform=darwin --arch=x64 --version=0.27.2 && cp images/ah.icns arrowhorn-darwin-x64/arrowhorn.app/Contents/Resources/atom.icns"
   },
   "window": {
     "toolbar": true,
@@ -25,6 +25,9 @@
   "registry": "http://localhost:4873/",
   "devDependencies": {
     "asar": "^0.8.0",
-    "electron-packager": "^5.0.2"
+    "electron-packager": "^5.0.2",
+    "electron-prebuilt": "^0.31.2",
+    "grunt": "^0.4.5",
+    "grunt-electron-installer": "^1.0.1"
   }
 }
